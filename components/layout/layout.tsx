@@ -47,7 +47,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     switch (pathname) {
-      case "/[chain]/[collection]":
+      case "/[chain]/[address]":
         setTab(0);
         break;
       case "/[chain]/[...nft]":
