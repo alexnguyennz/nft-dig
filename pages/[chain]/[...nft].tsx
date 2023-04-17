@@ -80,8 +80,6 @@ export default function NFT({
     }
   );
 
-  console.log("data", data);
-
   const { refetch } = useQuery(
     [chain, address, tokenId, "refreshMetadata"],
     () => refreshMetadata(chain, address, tokenId),
