@@ -39,7 +39,7 @@ export default function NftMedia({
           const { image, contentType } = generateNftUrl(
             nft.appMetadata.image,
             nft.appMetadata.content_type,
-            nft.appMetadata.content_length, // '100000'
+            nft.appMetadata.content_length,
             size,
             fullSize
           );
@@ -97,7 +97,7 @@ export default function NftMedia({
           src={nft.appMetadata.animation_url || nft.appMetadata.image}
         ></iframe>
       );
-    case "image/svg+xml":
+    case "svg":
       return (
         <div className={"nft-svg-html"}>{parse(nft.appMetadata.image)}</div>
       );
