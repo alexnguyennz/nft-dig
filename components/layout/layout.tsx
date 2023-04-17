@@ -94,6 +94,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           <Tab
             className={"flex flex-col justify-center rounded-lg"}
             _selected={tabStyles}
+            textColor={bgColour}
             borderRadius="0.75rem"
           >
             <IconWallet /> <span>Wallet</span>
@@ -101,6 +102,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           <Tab
             className={"flex flex-col justify-center"}
             _selected={tabStyles}
+            textColor={bgColour}
             borderRadius="0.75rem"
           >
             <IconPhoto />
@@ -109,6 +111,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           <Tab
             className={"flex flex-col justify-center"}
             _selected={tabStyles}
+            textColor={bgColour}
             borderRadius="0.75rem"
           >
             <IconFolder /> <span>Collection</span>
@@ -116,6 +119,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           <Tab
             className={"flex flex-col justify-center"}
             _selected={tabStyles}
+            textColor={bgColour}
             borderRadius="0.75rem"
           >
             <IconSearch /> <span>Search</span>

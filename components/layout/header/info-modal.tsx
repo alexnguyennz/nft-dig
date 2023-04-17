@@ -31,7 +31,7 @@ export default function InfoModal() {
 
   return (
     <>
-      <button onClick={onOpen}>
+      <button onClick={onOpen} aria-label={"Open info modal"}>
         <IconInfoCircleFilled />
       </button>
 
@@ -49,8 +49,8 @@ export default function InfoModal() {
           <ModalCloseButton />
           <ModalBody fontSize={"lg"}>
             <div className="mb-5 space-y-3 text-center">
-              <p>NFT Dig is a tool to view NFTs for any wallet.</p>
-              <p>You can connect your wallet to view your NFTs.</p>
+              <p>NFT Dig is a simple multichain NFT viewer.</p>
+              <p>You can connect your wallet to easily view your own NFTs.</p>
               <p>
                 Works with{" "}
                 <Link href="https://ens.domains/" isExternal>

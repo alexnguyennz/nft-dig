@@ -13,6 +13,10 @@ export default function Index() {
   return (
     <Head>
       <title>NFT Dig - A multichain NFT viewer.</title>
+      <meta
+        name="description"
+        content="NFT Dig is a simple multichain NFT viewer."
+      />
     </Head>
   );
 }

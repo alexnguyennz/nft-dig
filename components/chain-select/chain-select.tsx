@@ -108,6 +108,7 @@ export default function ChainSelect() {
         isDisabled={isFetching > 0}
         isSearchable={false}
         components={customComponents}
+        aria-label={"Chain options select"}
       />
     </>
   );
