@@ -1,14 +1,15 @@
-import ImageKit from "imagekit-javascript";
-import { Cloudinary } from "@cloudinary/url-gen";
-import { fill } from "@cloudinary/url-gen/actions/resize";
-import { defaultImage } from "@cloudinary/transformation-builder-sdk/actions/delivery";
+import ImageKit from 'imagekit-javascript';
+import { Cloudinary } from '@cloudinary/url-gen';
+import { fill } from '@cloudinary/url-gen/actions/resize';
+import { defaultImage } from '@cloudinary/transformation-builder-sdk/actions/delivery';
 
 const imagekit = new ImageKit({
   publicKey: process.env.NEXT_PUBLIC_IMAGEKIT_API_PUBLIC_KEY,
-  urlEndpoint: process.env.NEXT_PUBLIC_IMAGEKIT_API_URL!,
+  urlEndpoint:
+    process.env.NEXT_PUBLIC_IMAGEKIT_API_URL || 'https://ik.imagekit.io/nftdig',
 });
 
-const DEFAULT_IMAGEKIT_IMG = "no-image.png";
+const DEFAULT_IMAGEKIT_IMG = 'no-image.png';
 export function generateImageKitImage(image: string, size: string) {
   return imagekit.url({
     src: `${process.env.NEXT_PUBLIC_IMAGEKIT_API_URL}/${image}`,
@@ -33,9 +34,9 @@ export const cloudinary = new Cloudinary({
 export function generateCloudinaryGifVideo(image: string, size: string) {
   const cloudinaryImage = cloudinary
     .image(image)
-    .setDeliveryType("fetch")
+    .setDeliveryType('fetch')
     .resize(fill(size))
-    .format("mp4")
-    .delivery(defaultImage("no-video_yz9wbr.png"));
+    .format('mp4')
+    .delivery(defaultImage('no-video_yz9wbr.png'));
   return cloudinaryImage.toURL();
 }
