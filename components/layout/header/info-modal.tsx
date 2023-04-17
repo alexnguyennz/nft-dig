@@ -49,7 +49,7 @@ export default function InfoModal() {
           <ModalCloseButton />
           <ModalBody fontSize={"lg"}>
             <div className="mb-5 space-y-3 text-center">
-              <p>NFT Dig is a simple multichain NFT viewer.</p>
+              <p>NFT Dig is a simple multi-chain NFT viewer.</p>
               <p>You can connect your wallet to easily view your own NFTs.</p>
               <p>
                 Works with{" "}
