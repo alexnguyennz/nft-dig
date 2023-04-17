@@ -15,7 +15,7 @@ export default function Index() {
       <title>NFT Dig - A multi-chain NFT viewer.</title>
       <meta
         name="description"
-        content="NFT Dig is a simple multi-chain NFT viewer. View NFTs for any wallet or collection or search for them."
+        content="NFT Dig is a simple multi-chain NFT viewer. View NFTs for any wallet/collection or search for them."
       />
     </Head>
   );
