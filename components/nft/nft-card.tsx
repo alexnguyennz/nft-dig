@@ -40,7 +40,7 @@ export default function NFTCard({ nft, chain }: NFTCardProps) {
 
   const colorModeBg = useColorModeValue("bg-white", "bg-gray-800");
   const colorModeCard = useColorModeValue(
-    "bg-gray-50 border-gray-200",
+    "white border-gray-200",
     "bg-gray-700 border-gray-800"
   );
 

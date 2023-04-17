@@ -1,4 +1,4 @@
-NFT Dig is a tool to view a wallet's NFTs. You can also connect your wallet to use your own address.
+NFT Dig is a multichain NFT viewer. You can also connect your wallet to use your own address.
 
 Works with [ENS](https://ens.domains/) and [Unstoppable Domains](https://unstoppabledomains.com/).
 

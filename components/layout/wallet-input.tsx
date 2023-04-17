@@ -59,7 +59,7 @@ export default function WalletInput() {
           borderRadius="0.75rem"
         />
 
-        <div className={"space-x-5"}>
+        <div className={"flex justify-center gap-5"}>
           {!isFetching && (
             <>
               <Button

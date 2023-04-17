@@ -73,11 +73,8 @@ export const getServerSideProps: GetServerSideProps = async ({
 }) => {
   const { chain, collection } = query;
 
-  const collectionNfts = await fetchCollectionNfts({}, chain, collection);
-
   return {
     props: {
-      collectionNfts,
       chain,
       collection,
       cookies: req.headers.cookie ?? "",
@@ -86,56 +83,55 @@ export const getServerSideProps: GetServerSideProps = async ({
 };
 
 export default function NFTCollection({
-  collectionNfts,
   chain,
   collection,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   // Queries
-  const { data } = useQuery(
+  const { data, isSuccess } = useQuery(
     [chain, collection, "collection"],
     (query) => fetchCollectionNfts(query, chain, collection),
     {
-      initialData: collectionNfts,
       retry: 1,
       keepPreviousData: true,
     }
   );
 
-  return (
-    <>
-      <Head>
-        <title>{`NFT Dig - Collection ${
-          data.result[0]?.symbol
-            ? data.result[0].symbol
-            : data.result[0].token_address
-        }`}</title>
-      </Head>
-      <div className={"mb-5 flex justify-center"}>
-        <Breadcrumb spacing="8px" separator="→">
-          <BreadcrumbItem>
-            <BreadcrumbLink as={NextLink} href="/">
-              <IconHome />
-            </BreadcrumbLink>
-          </BreadcrumbItem>
+  if (isSuccess)
+    return (
+      <>
+        <Head>
+          <title>{`NFT Dig - Collection ${
+            data.result[0]?.symbol
+              ? data.result[0].symbol
+              : data.result[0].token_address
+          }`}</title>
+        </Head>
+        <div className={"mb-5 flex justify-center"}>
+          <Breadcrumb spacing="8px" separator="→">
+            <BreadcrumbItem>
+              <BreadcrumbLink as={NextLink} href="/">
+                <IconHome />
+              </BreadcrumbLink>
+            </BreadcrumbItem>
 
-          <BreadcrumbItem isCurrentPage>
-            <BreadcrumbLink href="#">
-              {data.result[0]?.name
-                ? data.result[0]?.name
-                : truncate(data.result[0].token_address)}
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-        </Breadcrumb>
-      </div>
-      <div>
-        {data.result[0] && (
-          <Metadata data={data.result[0]} chain={chain as string} />
-        )}
+            <BreadcrumbItem isCurrentPage>
+              <BreadcrumbLink href="#">
+                {data.result[0]?.name
+                  ? data.result[0]?.name
+                  : truncate(data.result[0].token_address)}
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+          </Breadcrumb>
+        </div>
+        <div>
+          {data.result[0] && (
+            <Metadata data={data.result[0]} chain={chain as string} />
+          )}
 
-        <NFTs chain={chain} collection={collection} />
-      </div>
-    </>
-  );
+          <NFTs chain={chain} collection={collection} />
+        </div>
+      </>
+    );
 }
 
 interface MetadataProps {
