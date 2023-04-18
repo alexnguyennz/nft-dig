@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
-import { useIsFetching } from "@tanstack/react-query";
+import { useQuery, useIsFetching } from "@tanstack/react-query";
 import { useStore } from "@/src/state/store";
 
 import { useColorModeValue, Button, Input } from "@chakra-ui/react";
@@ -21,14 +21,23 @@ export default function WalletInput() {
 
   const bgColour = useColorModeValue("white", "#1f2937");
 
-  function getRandomWallet() {
-    fetchRandomWallet().then((data) => {
+  const { refetch, data } = useQuery(
+    ["randomWallet"],
+    () => fetchRandomWallet(),
+    {
+      retry: 1,
+      enabled: false,
+    }
+  );
+
+  useEffect(() => {
+    if (data) {
       push({
         pathname: "/[chain]/[address]",
         query: { chain: chain!.value, address: data.address },
       });
-    });
-  }
+    }
+  }, [data]);
 
   useEffect(() => {
     if (pathname === "/[chain]/[address]" && query.address) {
@@ -74,7 +83,7 @@ export default function WalletInput() {
                 View
               </Button>
               <Button
-                onClick={getRandomWallet}
+                onClick={() => refetch()}
                 size="lg"
                 colorScheme="blue"
                 borderRadius={"0.75rem"}

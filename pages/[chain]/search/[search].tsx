@@ -72,7 +72,7 @@ export default function Search({
         <title>{`NFT Dig - ${search}`}</title>
       </Head>
 
-      <div className="3xl:grid-cols-7 4xl:grid-cols-8 grid grid-cols-2 gap-10 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+      <div className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {data?.pages.map((page, idx) => (
           <Fragment key={idx}>
             {page.result.map((nft: NFT) => (
