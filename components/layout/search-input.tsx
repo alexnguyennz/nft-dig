@@ -21,7 +21,7 @@ export default function SearchInput() {
 
   const isFetching = useIsFetching();
 
-  const { chain } = useStore();
+  const { chain, limit } = useStore();
 
   const bgColour = useColorModeValue("white", "#1f2937");
   const placeholderColour = useColorModeValue(
@@ -131,7 +131,11 @@ export default function SearchInput() {
           </>
         )}
 
-        {isFetching > 0 && <CancelButton />}
+        {isFetching > 0 && (
+          <CancelButton
+            queryKey={[chain!.value, searchQuery, "searchNfts", limit!.value]}
+          />
+        )}
       </div>
     </>
   );

@@ -16,7 +16,7 @@ export default function WalletInput() {
 
   const isFetching = useIsFetching();
 
-  const { chain } = useStore();
+  const { chain, limit } = useStore();
   const [address, setAddress] = useState<string | string[] | undefined>("");
 
   const bgColour = useColorModeValue("white", "#1f2937");
@@ -95,7 +95,11 @@ export default function WalletInput() {
             </>
           )}
 
-          {isFetching > 0 && <CancelButton />}
+          {isFetching > 0 && (
+            <CancelButton
+              queryKey={[chain!.value, address, "nfts", limit!.value]}
+            />
+          )}
         </div>
       </form>
     </>
