@@ -60,7 +60,9 @@ export default function CollectionInput() {
             </Button>
           )}
 
-          {isFetching > 0 && <CancelButton />}
+          {isFetching > 0 && (
+            <CancelButton queryKey={[chain!.value, address, "collection"]} />
+          )}
         </div>
       </form>
     </>
