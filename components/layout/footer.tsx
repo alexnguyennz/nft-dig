@@ -11,7 +11,9 @@ export default function Footer() {
           aria-label={"Twitter page"}
         >
           <IconBrandTwitterFilled
-            className={"inline h-8 w-8 opacity-80 transition hover:opacity-100"}
+            className={
+              "twitter inline h-8 w-8 opacity-80 transition hover:opacity-100"
+            }
           />
         </Link>
       </Tooltip>
