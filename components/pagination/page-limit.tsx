@@ -69,6 +69,7 @@ export default function PageLimit() {
           chakraStyles={chakraStyles}
           isSearchable={false}
           menuPlacement={"auto"}
+          aria-label={"page limit"}
         />
       </FormControl>
     </div>

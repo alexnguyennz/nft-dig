@@ -87,29 +87,33 @@ export default function ChainSelect() {
 
   return (
     <>
-      <Select<Chain, true, GroupBase<Chain>>
-        instanceId="chain-select"
-        size="lg"
-        colorScheme={bgColour}
-        options={groupedOptions}
-        value={{
-          icon: <ChainIcon value={chain!.value} label={chain!.label} />,
-          value: chain!.value,
-          label: (
-            <ChainIcon value={chain!.value} label={chain!.label} />
-          ) as unknown as string,
-          chainId: 1,
-        }}
-        onChange={(option) => {
-          setChain(option as unknown as Chain);
-        }}
-        className={"inline-block cursor-pointer"}
-        chakraStyles={chakraStyles}
-        isDisabled={isFetching > 0}
-        isSearchable={false}
-        components={customComponents}
-        aria-label={"Chain options select"}
-      />
+      <form data-testid="chain-select">
+        <Select<Chain, true, GroupBase<Chain>>
+          instanceId="chain-select"
+          name={"chain-select"}
+          inputId={"chain-select"}
+          size="lg"
+          colorScheme={bgColour}
+          options={groupedOptions}
+          value={{
+            icon: <ChainIcon value={chain!.value} label={chain!.label} />,
+            value: chain!.value,
+            label: (
+              <ChainIcon value={chain!.value} label={chain!.label} />
+            ) as unknown as string,
+            chainId: 1,
+          }}
+          onChange={(option) => {
+            setChain(option as unknown as Chain);
+          }}
+          className={"inline-block cursor-pointer"}
+          chakraStyles={chakraStyles}
+          isDisabled={isFetching > 0}
+          isSearchable={false}
+          components={customComponents}
+          aria-label={"Chain options select"}
+        />
+      </form>
     </>
   );
 }

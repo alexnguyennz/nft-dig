@@ -30,8 +30,8 @@ import {
 /*** Components ***/
 import NFTCard from "@/components/nft/nft-card";
 import NFTImage from "@/components/nft/nft-media";
-import LoadMoreButton from "@/components/load-more-button/load-more-button";
-import PageLimit from "@/components/layout/page-limit";
+import LoadMore from "@/components/pagination/load-more";
+import PageLimit from "@/components/pagination/page-limit";
 import Error from "@/components/misc/error";
 import LoadingSpinner from "@/components/misc/loading-spinner";
 
@@ -255,7 +255,7 @@ function NFTs({ chain, collection }: NFTsProps) {
       </div>
 
       <div className={"mt-10 flex items-center justify-center gap-10"}>
-        <LoadMoreButton
+        <LoadMore
           hasNextPage={hasNextPage}
           fetchNextPage={fetchNextPage}
           isFetchingNextPage={isFetchingNextPage}

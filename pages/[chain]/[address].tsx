@@ -6,10 +6,10 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 
 import { useStore } from "@/src/state/store";
 
-import PageLimit from "@/components/layout/page-limit";
+import PageLimit from "@/components/pagination/page-limit";
 import Error from "@/components/misc/error";
 import NFTCard from "@/components/nft/nft-card";
-import LoadMoreButton from "@/components/load-more-button/load-more-button";
+import LoadMore from "@/components/pagination/load-more";
 
 import { type NFT } from "@/src/types";
 
@@ -92,7 +92,7 @@ export default function UserNFTs({
       </div>
 
       <div className={"mt-10 flex items-center justify-center gap-10"}>
-        <LoadMoreButton
+        <LoadMore
           hasNextPage={hasNextPage}
           fetchNextPage={fetchNextPage}
           isFetchingNextPage={isFetchingNextPage}
