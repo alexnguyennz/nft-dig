@@ -22,6 +22,11 @@ export default function NFTInput() {
   const bgColour = useColorModeValue("white", "#1f2937");
 
   useEffect(() => {
+    if (pathname === "/") {
+      setAddress("");
+      setId("");
+    }
+
     if (pathname === "/[chain]/[...nft]" && query.nft) {
       setAddress(query.nft[0]);
       setId(query.nft[1]);

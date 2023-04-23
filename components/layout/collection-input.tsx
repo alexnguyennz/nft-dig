@@ -20,6 +20,8 @@ export default function CollectionInput() {
   const bgColour = useColorModeValue("white", "#1f2937");
 
   useEffect(() => {
+    if (pathname === "/") setAddress("");
+
     if (pathname === "/[chain]/collection/[collection]" && query.collection) {
       setAddress(query.collection);
     }

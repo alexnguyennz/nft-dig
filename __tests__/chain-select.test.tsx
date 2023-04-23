@@ -3,7 +3,7 @@ import { screen, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import selectEvent from "react-select-event";
 
-import "./matchMedia.mock";
+import "@/__tests__/matchMedia.mock";
 
 import ChainSelect from "@/components/chain-select/chain-select";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";

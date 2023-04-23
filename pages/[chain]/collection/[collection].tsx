@@ -96,14 +96,19 @@ export default function NFTCollection({
     }
   );
 
+  if (!isSuccess)
+    return (
+      <Head>
+        <title>{`NFT Dig - Collection ${collection}`}</title>
+      </Head>
+    );
+
   if (isSuccess)
     return (
       <>
         <Head>
           <title>{`NFT Dig - Collection ${
-            data.result[0]?.symbol
-              ? data.result[0].symbol
-              : data.result[0].token_address
+            data.result[0]?.symbol ? data.result[0].symbol : collection
           }`}</title>
         </Head>
         <div className={"mb-5 flex justify-center"}>
@@ -118,7 +123,7 @@ export default function NFTCollection({
               <BreadcrumbLink href="#">
                 {data.result[0]?.name
                   ? data.result[0]?.name
-                  : truncate(data.result[0].token_address)}
+                  : truncate(collection)}
               </BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>

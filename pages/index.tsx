@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { GetServerSideProps } from "next";
+import type { GetServerSideProps } from "next";
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   return {

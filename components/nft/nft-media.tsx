@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import NextLink from "next/link";
 
-import { useColorModeValue, Image } from "@chakra-ui/react";
+import { useColorModeValue, Image, Link } from "@chakra-ui/react";
+import { IconExternalLink, IconPdf } from "@tabler/icons-react";
 
 import LoadingSpinner from "@/components/misc/loading-spinner";
 
@@ -100,6 +101,17 @@ export default function NftMedia({
     case "svg":
       return (
         <div className={"nft-svg-html"}>{parse(nft.appMetadata.image)}</div>
+      );
+    case "application/pdf":
+      return (
+        <Link
+          href={nft.appMetadata.image}
+          isExternal
+          className={"pdf flex items-center justify-center"}
+        >
+          <IconPdf className={"h-40 w-40"} />
+          <IconExternalLink />
+        </Link>
       );
     default:
       return (

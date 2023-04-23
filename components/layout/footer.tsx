@@ -3,7 +3,7 @@ import { IconBrandTwitterFilled } from "@tabler/icons-react";
 
 export default function Footer() {
   return (
-    <div className={"flex justify-center pt-5"}>
+    <div className={"mt-16 flex justify-center"}>
       <Tooltip label="Twitter" openDelay={750} placement={"top"} hasArrow>
         <Link
           href={"https://twitter.com/nftdigapp"}
