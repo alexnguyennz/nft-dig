@@ -16,15 +16,15 @@ const font = Lexend({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ReactQueryProvider>
-      <ChakraProvider cookies={pageProps.cookies}>
-        <ConnectKitProvider>
+      <ConnectKitProvider>
+        <ChakraProvider cookies={pageProps.cookies}>
           <Layout>
             <div className={font.className}>
               <Component {...pageProps} />
             </div>
           </Layout>
-        </ConnectKitProvider>
-      </ChakraProvider>
+        </ChakraProvider>
+      </ConnectKitProvider>
     </ReactQueryProvider>
   );
 }

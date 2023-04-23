@@ -30,8 +30,8 @@ import {
 /*** Components ***/
 import NFTCard from "@/components/nft/nft-card";
 import NFTImage from "@/components/nft/nft-media";
-import LoadMoreButton from "@/components/load-more-button/load-more-button";
-import PageLimit from "@/components/layout/page-limit";
+import LoadMore from "@/components/pagination/load-more";
+import PageLimit from "@/components/pagination/page-limit";
 import Error from "@/components/misc/error";
 import LoadingSpinner from "@/components/misc/loading-spinner";
 
@@ -96,14 +96,19 @@ export default function NFTCollection({
     }
   );
 
+  if (!isSuccess)
+    return (
+      <Head>
+        <title>{`NFT Dig - Collection ${collection}`}</title>
+      </Head>
+    );
+
   if (isSuccess)
     return (
       <>
         <Head>
           <title>{`NFT Dig - Collection ${
-            data.result[0]?.symbol
-              ? data.result[0].symbol
-              : data.result[0].token_address
+            data.result[0]?.symbol ? data.result[0].symbol : collection
           }`}</title>
         </Head>
         <div className={"mb-5 flex justify-center"}>
@@ -118,7 +123,7 @@ export default function NFTCollection({
               <BreadcrumbLink href="#">
                 {data.result[0]?.name
                   ? data.result[0]?.name
-                  : truncate(data.result[0].token_address)}
+                  : truncate(collection)}
               </BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
@@ -255,7 +260,7 @@ function NFTs({ chain, collection }: NFTsProps) {
       </div>
 
       <div className={"mt-10 flex items-center justify-center gap-10"}>
-        <LoadMoreButton
+        <LoadMore
           hasNextPage={hasNextPage}
           fetchNextPage={fetchNextPage}
           isFetchingNextPage={isFetchingNextPage}

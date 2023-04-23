@@ -66,6 +66,8 @@ export default function SearchInput() {
   }, [searchOptions]);
 
   useEffect(() => {
+    if (pathname === "/") setSearchOptions([]);
+
     if (pathname === "/[chain]/search/[search]" && query.search) {
       if (typeof query.search === "string") {
         setSearchOptions(

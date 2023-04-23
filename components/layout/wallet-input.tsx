@@ -40,6 +40,8 @@ export default function WalletInput() {
   }, [data]);
 
   useEffect(() => {
+    if (pathname === "/") setAddress("");
+
     if (pathname === "/[chain]/[address]" && query.address) {
       setAddress(query.address);
     }

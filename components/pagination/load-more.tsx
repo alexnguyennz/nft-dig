@@ -13,7 +13,7 @@ interface LoadMoreButtonProps {
   limit: string;
 }
 
-export default function LoadMoreButton({
+export default function LoadMore({
   hasNextPage,
   fetchNextPage,
   isFetchingNextPage,
