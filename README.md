@@ -39,6 +39,7 @@ Works with [ENS](https://ens.domains/) and [Unstoppable Domains](https://unstopp
 - [React Query](https://tanstack.com/query/latest) - data fetching/caching
 - [Zustand](https://github.com/pmndrs/zustand/) - state management
 - [Cloudinary](https://cloudinary.com/) & [ImageKit](http://imagekit.io/) - media transformations
+- [Jest](https://jestjs.io/) & [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) - testing
 
 #### Backend
 
