@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import {
   useColorModeValue,
+  useToast,
   Box,
   Breadcrumb,
   BreadcrumbItem,
@@ -24,6 +25,7 @@ import {
   MenuList,
   MenuItem,
   Menu,
+  Wrap,
 } from "@chakra-ui/react";
 import {
   IconAlertCircleFilled,
@@ -71,6 +73,8 @@ export default function NFT({
   address,
   tokenId,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const toast = useToast();
+
   const { data, isSuccess } = useQuery(
     [chain, address, tokenId, "nft metadata"],
     () => fetchNft(chain, address, tokenId),
@@ -84,8 +88,19 @@ export default function NFT({
     [chain, address, tokenId, "refreshMetadata"],
     () => refreshMetadata(chain, address, tokenId),
     {
-      retry: 1,
+      retry: 0,
       enabled: false,
+      onError: (error) => {
+        if (error instanceof Error) {
+          toast({
+            description: error.message,
+            status: "error",
+            duration: 3000,
+            position: "top",
+            isClosable: true,
+          });
+        }
+      },
     }
   );
 
@@ -100,30 +115,36 @@ export default function NFT({
           }`}</title>
         </Head>
         <div className={"mb-5 flex justify-center"}>
-          <Breadcrumb spacing="8px" separator="→">
-            <BreadcrumbItem>
-              <BreadcrumbLink as={NextLink} href="/">
-                <IconHome />
-              </BreadcrumbLink>
-            </BreadcrumbItem>
+          <Wrap>
+            <Breadcrumb spacing="8px" separator="→">
+              <BreadcrumbItem>
+                <BreadcrumbLink as={NextLink} href="/">
+                  <IconHome />
+                </BreadcrumbLink>
+              </BreadcrumbItem>
 
-            <BreadcrumbItem>
-              <BreadcrumbLink
-                as={NextLink}
-                href={`/${chain}/collection/${data.token_address}`}
-              >
-                {data.name || truncate(data.token_address)}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
+              <BreadcrumbItem>
+                <BreadcrumbLink
+                  as={NextLink}
+                  href={`/${chain}/collection/${data.token_address}`}
+                >
+                  {data.name || truncate(data.token_address)}
+                </BreadcrumbLink>
+              </BreadcrumbItem>
 
-            <BreadcrumbItem isCurrentPage>
-              <BreadcrumbLink href="#" fontWeight={"bold"}>
-                {data.appMetadata?.name
-                  ? data.appMetadata?.name
-                  : `#${data.token_id}`}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-          </Breadcrumb>
+              <BreadcrumbItem isCurrentPage>
+                <BreadcrumbLink href="#" fontWeight={"bold"}>
+                  {data.appMetadata?.name
+                    ? data.appMetadata?.name
+                    : `#${
+                        data.token_id.length > 10
+                          ? truncate(data.token_id)
+                          : data.token_id
+                      }`}
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+            </Breadcrumb>
+          </Wrap>
         </div>
         <section
           className={`nft mx-auto grid max-w-7xl grid-cols-1 gap-5 rounded-3xl p-5 shadow-md md:grid-cols-2 md:gap-10 ${bgColour}`}
@@ -139,7 +160,7 @@ export default function NFT({
               <div
                 className={"flex flex-col justify-between gap-5 md:flex-row"}
               >
-                <h2 className={"text-2xl font-bold"}>
+                <h2 className={"line-clamp-5 text-2xl font-bold"}>
                   {data.appMetadata?.name
                     ? data.appMetadata?.name
                     : `#${data.token_id}`}

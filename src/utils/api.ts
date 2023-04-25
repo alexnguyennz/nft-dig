@@ -47,9 +47,13 @@ export async function refreshMetadata(
   address: string | string[] | undefined,
   tokenId: string | string[] | undefined
 ) {
-  return fetch(
+  const response = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER}/api/resync/chain/${chain}/address/${address}/id/${tokenId}`
-  ).then((response) => response.json());
+  );
+
+  if (!response.ok) throw new Error("Error refreshing metadata");
+
+  return response.json();
 }
 
 /* Search NFTs */

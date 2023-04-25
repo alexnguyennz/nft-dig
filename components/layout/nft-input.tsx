@@ -12,12 +12,14 @@ import CancelButton from "@/components/layout/cancel-button";
 export default function NFTInput() {
   const { asPath, pathname, query, push } = useRouter();
 
-  const isFetching = useIsFetching();
-
   const { chain } = useStore();
 
   const [address, setAddress] = useState<string | string[] | undefined>("");
   const [id, setId] = useState<string | string[] | undefined>("");
+
+  const isFetching = useIsFetching({
+    queryKey: [chain!.value, address, id, "nft metadata"],
+  });
 
   const bgColour = useColorModeValue("white", "#1f2937");
 

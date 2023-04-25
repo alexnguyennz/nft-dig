@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import NextLink from "next/link";
 
 import { useColorModeValue, Image, Link } from "@chakra-ui/react";
-import { IconExternalLink, IconPdf } from "@tabler/icons-react";
+import { IconExternalLink, IconPdf, IconVideo } from "@tabler/icons-react";
 
 import LoadingSpinner from "@/components/misc/loading-spinner";
 
@@ -73,9 +73,21 @@ export default function NftMedia({
     case "video/webm":
       return (
         <video width="100%" controls muted loop>
-          <source src={`${image}`} type={nftContentType} />
+          <source src={`${image}`} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
+      );
+
+    case "video/quicktime":
+      return (
+        <Link
+          href={nft.appMetadata.image}
+          isExternal
+          className={"pdf flex items-center justify-center"}
+        >
+          <IconVideo className={"h-40 w-40"} />
+          <IconExternalLink />
+        </Link>
       );
     case "model/gltf-binary":
       return <ModelViewer src={image} />;
