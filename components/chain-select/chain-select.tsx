@@ -9,21 +9,35 @@ import {
   Select,
   chakraComponents,
   type ChakraStylesConfig,
-  type OptionProps,
+  type OptionBase,
   type GroupBase,
+  type SelectComponentsConfig,
 } from "chakra-react-select";
 
 import { groupedOptions } from "@/src/chainConfig";
 import { ChainIcon } from "@/components/chain-select/chain-icon";
 
-const customComponents = {
-  Option: ({
-    children,
-    ...props
-  }: OptionProps<Chain, true, GroupBase<Chain>>) => (
+interface ChainOption extends OptionBase {
+  value: string;
+  label: string;
+  chainId: number;
+  icon: JSX.Element;
+}
+
+const customComponents: SelectComponentsConfig<
+  ChainOption,
+  false,
+  GroupBase<ChainOption>
+> = {
+  Option: ({ children, ...props }) => (
     <chakraComponents.Option {...props}>
-      {props.data.icon} {children}
+      <ChainIcon value={props.data.value} label={props.data.label} />
     </chakraComponents.Option>
+  ),
+  SingleValue: ({ children, ...props }) => (
+    <chakraComponents.SingleValue {...props}>
+      <ChainIcon value={props.data.value} label={props.data.label} />
+    </chakraComponents.SingleValue>
   ),
 };
 
@@ -34,7 +48,11 @@ export default function ChainSelect() {
 
   const bgColour = useColorModeValue("white", "#1f2937");
 
-  const chakraStyles: ChakraStylesConfig<Chain, true, GroupBase<Chain>> = {
+  const chakraStyles: ChakraStylesConfig<
+    ChainOption,
+    false,
+    GroupBase<ChainOption>
+  > = {
     dropdownIndicator: (base) => ({
       ...base,
       backgroundColor: bgColour,
@@ -88,20 +106,18 @@ export default function ChainSelect() {
   return (
     <>
       <form data-testid="chain-select">
-        <Select<Chain, true, GroupBase<Chain>>
+        <Select<ChainOption, false, GroupBase<ChainOption>>
           instanceId="chain-select"
           name={"chain-select"}
           inputId={"chain-select"}
           size="lg"
           colorScheme={bgColour}
           options={groupedOptions}
-          value={{
-            icon: <ChainIcon value={chain!.value} label={chain!.label} />,
-            value: chain!.value,
-            label: (
-              <ChainIcon value={chain!.value} label={chain!.label} />
-            ) as unknown as string,
+          defaultValue={{
+            value: "eth",
+            label: "Ethereum",
             chainId: 1,
+            icon: <ChainIcon value="eth" />,
           }}
           onChange={(option) => {
             setChain(option as unknown as Chain);
