@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Head from "next/head";
-
-import { useQuery } from "@tanstack/react-query";
+import { type GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 import {
   Image,
@@ -21,7 +20,32 @@ import {
 } from "@chakra-ui/react";
 import { IconChartBar, IconFlame } from "@tabler/icons-react";
 
-export default function TopCollections() {
+export const getServerSideProps: GetServerSideProps = async () => {
+  const data = await Promise.allSettled([
+    fetch(
+      `https://deep-index.moralis.io/api/v2/market-data/nfts/top-collections`,
+      { headers: { "x-api-key": "test" } }
+    ).then((response) => response.json()),
+    fetch(
+      `https://deep-index.moralis.io/api/v2/market-data/nfts/hottest-collections`,
+      { headers: { "x-api-key": "test" } }
+    ).then((response) => response.json()),
+  ]);
+
+  return { props: { data } };
+};
+
+interface Collection {
+  rank: number;
+  collection_title: string;
+  collection_image: string;
+  market_cap_usd?: string;
+  volume_usd?: string;
+}
+
+export default function TopCollections({
+  data,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [tab, setTab] = useState(0);
 
   const bgColour = useColorModeValue("bg-rose-50", "bg-gray-900");
@@ -69,10 +93,10 @@ export default function TopCollections() {
         </TabList>
         <TabPanels>
           <TabPanel paddingX={0}>
-            <MarketCap type={"top"} />
+            <MarketCap type={"top"} data={data[0].value} />
           </TabPanel>
           <TabPanel paddingX={0}>
-            <MarketCap type={"hottest"} />
+            <MarketCap type={"hottest"} data={data[1].value} />
           </TabPanel>
         </TabPanels>
       </Tabs>
@@ -80,14 +104,7 @@ export default function TopCollections() {
   );
 }
 
-function MarketCap({ type }: { type: string }) {
-  const { data } = useQuery([type, "collections"], () =>
-    fetch(
-      `https://deep-index.moralis.io/api/v2/market-data/nfts/${type}-collections`,
-      { headers: { "x-api-key": "test" } }
-    ).then((response) => response.json())
-  );
-
+function MarketCap({ type, data }: { type: string; data: Collection[] }) {
   return (
     <>
       {data && (
@@ -103,8 +120,8 @@ function MarketCap({ type }: { type: string }) {
           </Thead>
 
           <Tbody>
-            {data.map((collection, idx: number) => (
-              <Tr key={idx}>
+            {data.map((collection) => (
+              <Tr key={collection.rank}>
                 <Td>{collection.rank}</Td>
                 <Td className={"flex items-center gap-3"}>
                   <Image
@@ -127,7 +144,11 @@ function MarketCap({ type }: { type: string }) {
                     style: "currency",
                     currency: "USD",
                     currencyDisplay: "narrowSymbol",
-                  }).format(collection.market_cap_usd ?? collection.volume_usd)}
+                  }).format(
+                    collection.market_cap_usd
+                      ? Number(collection.market_cap_usd)
+                      : Number(collection.volume_usd)
+                  )}
                 </Td>
               </Tr>
             ))}
