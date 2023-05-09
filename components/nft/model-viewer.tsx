@@ -1,5 +1,6 @@
 import { useToast } from "@chakra-ui/react";
 import { IconMaximize } from "@tabler/icons-react";
+import Script from "next/script";
 
 export default function ModelViewer({ src }: { src: string }) {
   const toast = useToast();
@@ -23,18 +24,21 @@ export default function ModelViewer({ src }: { src: string }) {
   }
 
   return (
-    <div className="relative h-auto w-full">
-      <model-viewer
-        src={src}
-        alt={"NFT 3D model"}
-        camera-controls
-        shadow-intensity="1"
-      />
-      <div className="absolute right-1 top-1">
-        <button onClick={fullScreen}>
-          <IconMaximize className={"h-8 w-8 transition hover:scale-110"} />
-        </button>
+    <>
+      <Script type="module" src="/js/model-viewer.min.js" />
+      <div className="relative h-auto w-full">
+        <model-viewer
+          src={src}
+          alt={"NFT 3D model"}
+          camera-controls
+          shadow-intensity="1"
+        />
+        <div className="absolute right-1 top-1">
+          <button onClick={fullScreen}>
+            <IconMaximize className={"h-8 w-8 transition hover:scale-110"} />
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

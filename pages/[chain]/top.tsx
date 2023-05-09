@@ -18,7 +18,7 @@ import {
   Spinner,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { IconChartBar, IconFlame } from "@tabler/icons-react";
+import { IconChartBar, IconTrendingUp } from "@tabler/icons-react";
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const data = await Promise.allSettled([
@@ -60,17 +60,7 @@ export default function TopCollections({
         <title>NFT Dig - Top Ethereum collections</title>
       </Head>
 
-      <h2 className={"mt-10 text-center text-3xl font-bold"}>
-        Top Ethereum Collections
-      </h2>
-
-      <Tabs
-        index={tab}
-        onChange={setTab}
-        align="center"
-        variant="soft-rounded"
-        className={"mt-5"}
-      >
+      <Tabs index={tab} onChange={setTab} align="center" variant="soft-rounded">
         <TabList className={"mb-5"}>
           <Tab
             className={"flex flex-col justify-center rounded-lg"}
@@ -87,7 +77,7 @@ export default function TopCollections({
             textColor={bgColour}
             borderRadius="0.75rem"
           >
-            <IconFlame />
+            <IconTrendingUp />
             <span>Trending</span>
           </Tab>
         </TabList>

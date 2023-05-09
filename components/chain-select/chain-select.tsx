@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import NextLink from "next/link";
 
 import { useColorModeValue, Button } from "@chakra-ui/react";
 
@@ -18,8 +17,6 @@ import {
 
 import { groupedOptions } from "@/src/chainConfig";
 import { ChainIcon } from "@/components/chain-select/chain-icon";
-import { IconFlame } from "@tabler/icons-react";
-
 interface ChainOption extends OptionBase {
   value: string;
   label: string;
@@ -133,13 +130,6 @@ export default function ChainSelect() {
           aria-label={"Chain options select"}
         />
       </form>
-      {chain.value === "eth" && (
-        <div className={"my-3 flex justify-center"}>
-          <NextLink href="/eth/top" className={"flex items-center"}>
-            <IconFlame className={"inline-block"} /> Top Collections
-          </NextLink>
-        </div>
-      )}
     </>
   );
 }
