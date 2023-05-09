@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import {
@@ -13,6 +13,7 @@ import {
   IconFolder,
   IconPhoto,
   IconSearch,
+  IconTrendingUp,
   IconWallet,
 } from "@tabler/icons-react";
 
@@ -23,7 +24,7 @@ import CollectionInput from "@/components/layout/collection-input";
 import SearchInput from "@/components/layout/search-input";
 
 export default function Tabs() {
-  const { pathname } = useRouter();
+  const { pathname, push } = useRouter();
 
   const [tab, setTab] = useState(0);
 
@@ -33,7 +34,7 @@ export default function Tabs() {
     bg: useColorModeValue("#1f2937", "white"),
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     switch (pathname) {
       case "/[chain]/[address]":
         setTab(0);
@@ -46,6 +47,9 @@ export default function Tabs() {
         break;
       case "/[chain]/search/[search]":
         setTab(3);
+        break;
+      case "/[chain]/top":
+        setTab(4);
         break;
     }
   }, [pathname]);
@@ -68,6 +72,7 @@ export default function Tabs() {
             _selected={tabStyles}
             textColor={bgColour}
             borderRadius="0.75rem"
+            paddingX={"10px"}
           >
             <IconWallet /> <span>Wallet</span>
           </Tab>
@@ -76,6 +81,7 @@ export default function Tabs() {
             _selected={tabStyles}
             textColor={bgColour}
             borderRadius="0.75rem"
+            paddingX={"10px"}
           >
             <IconPhoto />
             <span>NFT</span>
@@ -85,6 +91,7 @@ export default function Tabs() {
             _selected={tabStyles}
             textColor={bgColour}
             borderRadius="0.75rem"
+            paddingX={"10px"}
           >
             <IconFolder /> <span>Collection</span>
           </Tab>
@@ -93,11 +100,22 @@ export default function Tabs() {
             _selected={tabStyles}
             textColor={bgColour}
             borderRadius="0.75rem"
+            paddingX={"10px"}
           >
             <IconSearch /> <span>Search</span>
           </Tab>
+          <Tab
+            className={"flex flex-col justify-center"}
+            _selected={tabStyles}
+            textColor={bgColour}
+            borderRadius="0.75rem"
+            paddingX={"10px"}
+            onClick={() => push("/eth/top")}
+          >
+            <IconTrendingUp /> <span>Top</span>
+          </Tab>
         </TabList>
-        <ChainSelect />
+        {tab !== 4 && <ChainSelect />}
         <TabPanels>
           <TabPanel paddingX={0}>
             <WalletInput />
@@ -127,5 +145,7 @@ function tabDescription(tab: number) {
       return "View NFTs for any collection.";
     case 3:
       return "Search for any NFTs.";
+    case 4:
+      return "Top Ethereum Collections.";
   }
 }
