@@ -113,7 +113,7 @@ function MarketCap({ type, data }: { type: string; data: Collection[] }) {
             {data.map((collection) => (
               <Tr key={collection.rank}>
                 <Td>{collection.rank}</Td>
-                <Td className={"flex items-center gap-3"}>
+                <Td className={"flex flex-col items-center gap-3 sm:flex-row"}>
                   <Image
                     src={
                       collection.collection_image ?? "/img/no-image-card.png"
@@ -129,7 +129,7 @@ function MarketCap({ type, data }: { type: string; data: Collection[] }) {
                   />
                   {collection.collection_title}
                 </Td>
-                <Td isNumeric>
+                <Td isNumeric className={"break-all"}>
                   {new Intl.NumberFormat("en-US", {
                     style: "currency",
                     currency: "USD",
