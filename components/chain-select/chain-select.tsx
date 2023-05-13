@@ -113,15 +113,14 @@ export default function ChainSelect() {
           size="lg"
           colorScheme={bgColour}
           options={groupedOptions}
+          value={chain}
           defaultValue={{
             value: "eth",
             label: "Ethereum",
             chainId: 1,
             icon: <ChainIcon value="eth" />,
           }}
-          onChange={(option) => {
-            setChain(option as unknown as Chain);
-          }}
+          onChange={(option) => setChain(option as unknown as Chain)}
           className={"inline-block cursor-pointer"}
           chakraStyles={chakraStyles}
           isDisabled={isFetching > 0}

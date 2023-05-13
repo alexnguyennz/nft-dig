@@ -4,8 +4,8 @@ import { Lexend } from "next/font/google";
 import type { AppProps } from "next/app";
 
 import ReactQueryProvider from "@/src/providers/react-query";
-import ChakraProvider from "@/src/providers/chakra";
 import ConnectKitProvider from "@/src/providers/connectkit";
+import ChakraProvider from "@/src/providers/chakra";
 
 import Layout from "@/components/layout/layout";
 
