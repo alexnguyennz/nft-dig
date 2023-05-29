@@ -1,4 +1,4 @@
-import { WagmiConfig, createClient } from "wagmi";
+import { WagmiConfig, createConfig } from "wagmi";
 import {
   mainnet,
   polygon,
@@ -13,13 +13,14 @@ import {
   bscTestnet,
 } from "wagmi/chains";
 
-import { ConnectKitProvider, getDefaultClient } from "connectkit";
+import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import { palm } from "@/src/customWalletChains";
 
-const client = createClient(
-  getDefaultClient({
+const config = createConfig(
+  getDefaultConfig({
     appName: "NFT Dig",
     infuraId: process.env.NEXT_PUBLIC_INFURA_API_KEY,
+    walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!,
     chains: [
       mainnet,
       polygon,
@@ -43,7 +44,7 @@ export default function CustomConnectKitProvider({
   children: JSX.Element;
 }) {
   return (
-    <WagmiConfig client={client}>
+    <WagmiConfig config={config}>
       <ConnectKitProvider>{children}</ConnectKitProvider>
     </WagmiConfig>
   );
