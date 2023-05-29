@@ -18,8 +18,7 @@
     "@tabler/icons-react": "^2.11.0",
     "@tanstack/react-query": "^4.28.0",
     "chakra-react-select": "4.6.0",
-    "connectkit": "^1.2.4",
-    "ethers": "5.7.2",
+    "connectkit": "^1.4.0",
     "framer-motion": "^7.10.3",
     "html-react-parser": "^3.0.15",
     "imagekit-javascript": "1.5.5",
@@ -28,7 +27,8 @@
     "react-dom": "18.2.0",
     "react-markdown": "^8.0.6",
     "sharp": "^0.32.0",
-    "wagmi": "^0.12.10",
+    "viem": "^0.3.37",
+    "wagmi": "^1.0.8",
     "zustand": "^4.3.6"
   },
   "devDependencies": {

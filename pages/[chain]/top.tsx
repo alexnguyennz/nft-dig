@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Head from "next/head";
+import NextLink from "next/link";
 import { type GetServerSideProps, InferGetServerSidePropsType } from "next";
 
 import {
@@ -19,6 +20,8 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { IconChartBar, IconTrendingUp } from "@tabler/icons-react";
+
+import { collections } from "@/src/data/collections";
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const data = await Promise.allSettled([
@@ -113,21 +116,51 @@ function MarketCap({ type, data }: { type: string; data: Collection[] }) {
             {data.map((collection) => (
               <Tr key={collection.rank}>
                 <Td>{collection.rank}</Td>
-                <Td className={"flex flex-col items-center gap-3 sm:flex-row"}>
-                  <Image
-                    src={
-                      collection.collection_image ?? "/img/no-image-card.png"
-                    }
-                    alt={collection.collection_title}
-                    width={50}
-                    height={50}
-                    className={"rounded-full"}
-                    fallback={
-                      <Spinner w={8} h={8} thickness="4px" speed="1s" />
-                    }
-                    fallbackSrc={"/img/no-image-card.png"}
-                  />
-                  {collection.collection_title}
+                <Td>
+                  {collections[collection.collection_title] ? (
+                    <NextLink
+                      href={`/eth/collection/${
+                        collections[collection.collection_title]
+                      }`}
+                      className={"flex flex-col items-center gap-3 sm:flex-row"}
+                    >
+                      <Image
+                        src={
+                          collection.collection_image ??
+                          "/img/no-image-card.png"
+                        }
+                        alt={collection.collection_title}
+                        width={50}
+                        height={50}
+                        className={"rounded-full"}
+                        fallback={
+                          <Spinner w={8} h={8} thickness="4px" speed="1s" />
+                        }
+                        fallbackSrc={"/img/no-image-card.png"}
+                      />
+                      {collection.collection_title}
+                    </NextLink>
+                  ) : (
+                    <div
+                      className={"flex flex-col items-center gap-3 sm:flex-row"}
+                    >
+                      <Image
+                        src={
+                          collection.collection_image ??
+                          "/img/no-image-card.png"
+                        }
+                        alt={collection.collection_title}
+                        width={50}
+                        height={50}
+                        className={"rounded-full"}
+                        fallback={
+                          <Spinner w={8} h={8} thickness="4px" speed="1s" />
+                        }
+                        fallbackSrc={"/img/no-image-card.png"}
+                      />
+                      {collection.collection_title}
+                    </div>
+                  )}
                 </Td>
                 <Td isNumeric className={"break-all"}>
                   {new Intl.NumberFormat("en-US", {
