@@ -48,9 +48,6 @@ export default function Tabs() {
       case "/[chain]/search/[search]":
         setTab(3);
         break;
-      case "/[chain]/top":
-        setTab(4);
-        break;
     }
   }, [pathname]);
 
@@ -104,16 +101,6 @@ export default function Tabs() {
           >
             <IconSearch /> <span>Search</span>
           </Tab>
-          <Tab
-            className={"flex flex-col justify-center"}
-            _selected={tabStyles}
-            textColor={bgColour}
-            borderRadius="0.75rem"
-            paddingX={"10px"}
-            onClick={() => push("/eth/top")}
-          >
-            <IconTrendingUp /> <span>Top</span>
-          </Tab>
         </TabList>
         {tab !== 4 && <ChainSelect />}
         <TabPanels>
@@ -145,7 +132,5 @@ function tabDescription(tab: number) {
       return "View NFTs for any collection.";
     case 3:
       return "Search for any NFTs.";
-    case 4:
-      return "Top Ethereum Collections.";
   }
 }
